@@ -1,0 +1,22 @@
+.app-layout {
+  height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.app-content {
+  color: #000000d9;
+  font-size: 14px;
+
+  position: relative;
+  background: #fff;
+
+  box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.2);
+  border: 1px solid #f0f0f0;
+  border-radius: 2px;
+
+  width: 80%;
+  height: 60%;
+
+  padding: 20px 40px;
+}
