@@ -6,17 +6,11 @@ import {
   useEffect,
   useState,
 } from "react";
-import { ICard } from "../../interfaces/Card.interface";
-import { IContextValues } from "./GameManager.interfaces";
 
-const CARD_IMAGES = [
-  { src: "/images/fronts/1.png" },
-  { src: "/images/fronts/2.png" },
-  { src: "/images/fronts/3.png" },
-  { src: "/images/fronts/4.png" },
-  { src: "/images/fronts/5.png" },
-  { src: "/images/fronts/6.png" },
-];
+import { CARD_FRONT_IMAGES } from "../../../constants/cardImages";
+import { ICard } from "../../interfaces/Card.interface";
+
+import { IContextValues } from "./GameManager.interfaces";
 
 interface Props {
   children: ReactNode;
@@ -31,7 +25,7 @@ const GameContextWrapper: FC<Props> = ({ children }) => {
   const [secondCard, setSecondCard] = useState<ICard | null>(null);
 
   const shuffleCards = useCallback(() => {
-    const shuffledCards: ICard[] = [...CARD_IMAGES, ...CARD_IMAGES]
+    const shuffledCards: ICard[] = [...CARD_FRONT_IMAGES, ...CARD_FRONT_IMAGES]
       .sort(() => Math.random() - 0.5)
       .map((card: ICard) => ({ ...card, id: Math.random(), matched: false }));
 
