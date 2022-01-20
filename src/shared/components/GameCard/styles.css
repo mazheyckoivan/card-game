@@ -1,8 +1,37 @@
 .game-card {
-  background-color: #4b4949 !important;
   border-radius: 10px !important;
+}
+
+.game-card-image {
+  position: absolute;
+  object-fit: fill;
+  height: calc(100% - 20px);
+  width: calc(100% - 20px);
 }
 
 .game-card .ant-card-body {
   padding: 10px;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.front {
+  transition: all ease-in 0.2s;
+  transform: rotateY(90deg);
+}
+
+.flipped .front {
+  transform: rotateY(0deg);
+  transition-delay: 0.2s;
+}
+
+.back {
+  transition: all ease-in 0.2s;
+  transition-delay: 0.2s;
+}
+
+.flipped .back {
+  transform: rotateY(90deg);
+  transition-delay: 0s;
 }
