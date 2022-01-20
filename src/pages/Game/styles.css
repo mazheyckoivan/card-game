@@ -1,0 +1,14 @@
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 150px));
+  grid-auto-rows: 150px;
+
+  gap: 1rem;
+  margin: 0 10%;
+}
+
+.game-card-image {
+  object-fit: fill;
+  height: 100%;
+  width: 100%;
+}

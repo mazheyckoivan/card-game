@@ -1,0 +1,8 @@
+.game-card {
+  background-color: #4b4949 !important;
+  border-radius: 10px !important;
+}
+
+.game-card .ant-card-body {
+  padding: 10px;
+}
