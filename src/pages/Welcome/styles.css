@@ -4,12 +4,6 @@
   flex-direction: column;
 }
 
-.welcome-screen .title,
-.subtitle,
-.text {
-  color: white !important;
-}
-
 .button {
   align-self: center;
 }

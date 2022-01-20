@@ -1,17 +1,23 @@
 import { FC } from "react";
 import { BrowserRouter } from "react-router-dom";
-import AppRouter from "./AppRouter";
+import { Provider as ReduxProvider } from "react-redux";
+
 import GameContextWrapper from "./shared/context/GameManager/GameManager";
 import AppLayout from "./shared/layouts/AppLayout";
 
+import AppRouter from "./AppRouter";
+import store from "./store/store";
+
 const App: FC = () => (
-  <BrowserRouter>
-    <GameContextWrapper>
-      <AppLayout>
-        <AppRouter />
-      </AppLayout>
-    </GameContextWrapper>
-  </BrowserRouter>
+  <ReduxProvider store={store}>
+    <BrowserRouter>
+      <GameContextWrapper>
+        <AppLayout>
+          <AppRouter />
+        </AppLayout>
+      </GameContextWrapper>
+    </BrowserRouter>
+  </ReduxProvider>
 );
 
 export default App;
