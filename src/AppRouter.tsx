@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Route, Routes } from "react-router-dom";
+import ROUTES from "./constants/routes";
 import {
   Game,
   Login,
@@ -13,12 +14,12 @@ import {
 const AppRouter: FC = () => {
   return (
     <Routes>
-      <Route path="/" element={<Welcome />} />
-      <Route path="login" element={<Login />} />
-      <Route path="game" element={<Game />} />
-      <Route path="game-settings" element={<Settings />} />
-      <Route path="game-summary" element={<Summary />} />
-      <Route path="results" element={<Results />} />
+      <Route path={ROUTES.welcome} element={<Welcome />} />
+      <Route path={ROUTES.login} element={<Login />} />
+      <Route path={ROUTES.game} element={<Game />} />
+      <Route path={ROUTES.settings} element={<Settings />} />
+      <Route path={ROUTES.summary} element={<Summary />} />
+      <Route path={ROUTES.results} element={<Results />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

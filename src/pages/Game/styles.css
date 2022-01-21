@@ -46,6 +46,12 @@
   padding: 0 10%;
 }
 
+.game-stats {
+  display: flex;
+  gap: 1rem;
+  align-self: center;
+}
+
 .action-buttons {
   display: flex;
   align-self: center;

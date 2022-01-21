@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 
+import ROUTES from "../../constants/routes";
 import { IUser } from "../../shared/interfaces/User.interface";
 import { useAppDispatch } from "../../store/hooks";
 import { setUserData } from "../../store/slices/userSlice";
@@ -13,7 +14,7 @@ const LoginContainer: FC = () => {
 
   const handleSubmit = (values: IUser) => {
     dispatch(setUserData(values));
-    navigate("/game-settings");
+    navigate(ROUTES.settings);
   };
 
   return <Login onSubmit={handleSubmit} />;

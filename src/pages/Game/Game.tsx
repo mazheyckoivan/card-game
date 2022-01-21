@@ -7,6 +7,9 @@ import { GameCard, GameTimer } from "../../shared/components";
 import useGameManager from "../../shared/context/GameManager/useGameManager";
 import { useAppSelector } from "../../store/hooks";
 
+import GameTurns from "../../shared/components/GameTurns/GameTurns";
+import ROUTES from "../../constants/routes";
+
 import "./styles.css";
 
 const Game: FC = () => {
@@ -31,7 +34,7 @@ const Game: FC = () => {
 
         <Button
           ghost
-          onClick={() => navigate("/login")}
+          onClick={() => navigate(ROUTES.login)}
           size="large"
           className="restart-button"
         >
@@ -40,7 +43,7 @@ const Game: FC = () => {
 
         <Button
           ghost
-          onClick={() => navigate("/game-settings")}
+          onClick={() => navigate(ROUTES.settings)}
           size="large"
           className="restart-button"
         >
@@ -48,7 +51,11 @@ const Game: FC = () => {
         </Button>
       </div>
 
-      <GameTimer />
+      <section className="game-stats">
+        <GameTurns />
+
+        <GameTimer />
+      </section>
 
       <div className={gridClassnames}>
         {cards.map((card) => (

@@ -1,6 +1,7 @@
 import { FC, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
+import ROUTES from "../../constants/routes";
 import { ICard } from "../../shared/interfaces/Card.interface";
 import { GridSize } from "../../shared/interfaces/Settings.interface";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
@@ -36,7 +37,7 @@ const SettingsContainer: FC = () => {
   );
 
   const handleLetsPlayButton = useCallback(() => {
-    navigate("/game");
+    navigate(ROUTES.game);
   }, [navigate]);
 
   return (

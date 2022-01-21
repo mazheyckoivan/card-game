@@ -6,6 +6,7 @@ interface IContextValues {
   firstCard: ICard | null;
   secondCard: ICard | null;
   timeSpent: number;
+  finished: boolean;
   restart(): void;
   handleCardClick(Card: ICard): void;
 }
