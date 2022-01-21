@@ -1,0 +1,29 @@
+.settings-screen {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.lets-play-button {
+  align-self: flex-end;
+}
+
+.back-images-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.settings-screen .back-image-card {
+  background: rgb(46, 28, 0);
+}
+
+.settings-screen .back-image-card.selected {
+  border-color: rgba(255, 255, 255, 0.85);
+}
+
+.settings-screen .back-image {
+  object-fit: fill;
+  height: 100%;
+  width: 100%;
+}

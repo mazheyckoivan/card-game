@@ -6,17 +6,12 @@ import {
   useEffect,
   useState,
 } from "react";
-import { ICard } from "../../interfaces/Card.interface";
-import { IContextValues } from "./GameManager.interfaces";
 
-const CARD_IMAGES = [
-  { src: "/images/fronts/1.png" },
-  { src: "/images/fronts/2.png" },
-  { src: "/images/fronts/3.png" },
-  { src: "/images/fronts/4.png" },
-  { src: "/images/fronts/5.png" },
-  { src: "/images/fronts/6.png" },
-];
+import { GRID_SIZE_CARDS_AMOUNT } from "../../../constants/gameSettings";
+import { useAppSelector } from "../../../store/hooks";
+import { ICard } from "../../interfaces/Card.interface";
+
+import { IContextValues } from "./GameManager.interfaces";
 
 interface Props {
   children: ReactNode;
@@ -25,23 +20,51 @@ interface Props {
 const GameContext = createContext<IContextValues | undefined>(undefined);
 
 const GameContextWrapper: FC<Props> = ({ children }) => {
+  const gridSize = useAppSelector((state) => state.settings.gridSize);
+
   const [cards, setCards] = useState<ICard[]>([]);
   const [turns, setTurns] = useState(0);
   const [firstCard, setFirstCard] = useState<ICard | null>(null);
   const [secondCard, setSecondCard] = useState<ICard | null>(null);
+  const [timeSpent, setTimeSpent] = useState(0);
+
+  const countUp = useCallback(() => {
+    setTimeSpent((timeSpent) => timeSpent + 1);
+  }, []);
+
+  const startTimer = useCallback(() => {
+    setTimeSpent(0);
+    setInterval(countUp, 1000);
+  }, [countUp]);
+
+  const prepareCardGameImages = useCallback(() => {
+    const imageSources = Array.from(Array(36).keys())
+      .sort(() => Math.random() - 0.5)
+      .slice(0, GRID_SIZE_CARDS_AMOUNT[gridSize])
+      .map((imageIndex: number) => `images/fronts/${imageIndex + 1}.png`);
+
+    return imageSources;
+  }, [gridSize]);
 
   const shuffleCards = useCallback(() => {
-    const shuffledCards: ICard[] = [...CARD_IMAGES, ...CARD_IMAGES]
+    const imageSources = prepareCardGameImages();
+
+    const shuffledCards: ICard[] = [...imageSources, ...imageSources]
       .sort(() => Math.random() - 0.5)
-      .map((card: ICard) => ({ ...card, id: Math.random(), matched: false }));
+      .map((imageSource: string) => ({
+        src: imageSource,
+        id: Math.random(),
+        matched: false,
+      }));
 
     return shuffledCards;
-  }, []);
+  }, [prepareCardGameImages]);
 
   const restart = useCallback(() => {
     setCards(shuffleCards());
     setTurns(0);
-  }, [shuffleCards]);
+    startTimer();
+  }, [shuffleCards, startTimer]);
 
   const resetTurn = useCallback(() => {
     setFirstCard(null);
@@ -84,7 +107,15 @@ const GameContextWrapper: FC<Props> = ({ children }) => {
 
   return (
     <GameContext.Provider
-      value={{ cards, turns, firstCard, secondCard, restart, handleCardClick }}
+      value={{
+        cards,
+        turns,
+        firstCard,
+        secondCard,
+        timeSpent,
+        restart,
+        handleCardClick,
+      }}
     >
       {children}
     </GameContext.Provider>

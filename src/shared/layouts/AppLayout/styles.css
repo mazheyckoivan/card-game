@@ -1,5 +1,5 @@
 .app-layout {
-  height: 100vh;
+  min-height: 100vh;
   display: grid;
   place-items: center;
 
@@ -19,4 +19,5 @@
   border-radius: 10px !important;
 
   width: 80%;
+  max-width: 1200px;
 }
