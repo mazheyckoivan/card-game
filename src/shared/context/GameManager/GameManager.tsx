@@ -13,6 +13,7 @@ import { GRID_SIZE_CARDS_AMOUNT } from "../../../constants/gameSettings";
 import ROUTES from "../../../constants/routes";
 import { useAppSelector } from "../../../store/hooks";
 import { ICard } from "../../interfaces/Card.interface";
+import { IResult } from "../../interfaces/Result.interface";
 
 import { IContextValues } from "./GameManager.interfaces";
 
@@ -24,7 +25,9 @@ const GameContext = createContext<IContextValues | undefined>(undefined);
 
 const GameContextWrapper: FC<Props> = ({ children }) => {
   const navigate = useNavigate();
+
   const gridSize = useAppSelector((state) => state.settings.gridSize);
+  const user = useAppSelector((state) => state.user);
 
   const [finished, setFinished] = useState(false);
   const [cards, setCards] = useState<ICard[]>([]);
@@ -98,6 +101,29 @@ const GameContextWrapper: FC<Props> = ({ children }) => {
     [disabled, firstCard]
   );
 
+  const saveResult = useCallback(() => {
+    const newResult: IResult = {
+      firstName: user.firstName || "N/A",
+      secondName: user.secondName || "N/A",
+      email: user.email || "N/A",
+      turns: turns,
+      time: timeSpent,
+      difficult: gridSize,
+    };
+
+    const rawOldResults = localStorage.getItem("results");
+
+    if (rawOldResults) {
+      const oldResults = JSON.parse(rawOldResults);
+      localStorage.setItem(
+        "results",
+        JSON.stringify([...oldResults, newResult])
+      );
+    } else {
+      localStorage.setItem("results", JSON.stringify([newResult]));
+    }
+  }, [gridSize, timeSpent, turns, user.email, user.firstName, user.secondName]);
+
   // check if cards matched or no and resetting turn
   useEffect(() => {
     if (firstCard && secondCard) {
@@ -123,9 +149,10 @@ const GameContextWrapper: FC<Props> = ({ children }) => {
     if (!finished && cards.length && cards.every((card) => card.matched)) {
       setFinished(true);
       stopTimer();
+      saveResult();
       navigate(ROUTES.summary, { state: { timeSpent, turns } });
     }
-  }, [cards, finished, navigate, stopTimer, timeSpent, turns]);
+  }, [cards, finished, navigate, saveResult, stopTimer, timeSpent, turns]);
 
   return (
     <GameContext.Provider

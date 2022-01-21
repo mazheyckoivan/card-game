@@ -49,6 +49,15 @@ const Game: FC = () => {
         >
           Go to settings tab
         </Button>
+
+        <Button
+          ghost
+          onClick={() => navigate(ROUTES.results)}
+          size="large"
+          className="restart-button"
+        >
+          Check Results
+        </Button>
       </div>
 
       <section className="game-stats">
