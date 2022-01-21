@@ -7,10 +7,11 @@ import { ICard } from "../../interfaces/Card.interface";
 interface Props {
   card: ICard;
   flipped: boolean;
+  backImageSrc: string;
   onCardClick(card: ICard): void;
 }
 
-const GameCard: FC<Props> = ({ card, flipped, onCardClick }) => {
+const GameCard: FC<Props> = ({ card, flipped, backImageSrc, onCardClick }) => {
   const cardClassNames = classNames("game-card", { flipped: flipped });
 
   return (
@@ -18,7 +19,7 @@ const GameCard: FC<Props> = ({ card, flipped, onCardClick }) => {
       <img src={card.src} className="game-card-image front" alt="card front" />
 
       <img
-        src="/images/backs/1.png"
+        src={backImageSrc}
         className="game-card-image back"
         alt="card back"
         onClick={() => onCardClick(card)}

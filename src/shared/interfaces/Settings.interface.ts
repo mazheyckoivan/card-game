@@ -1,6 +1,8 @@
+type GridSize = "sm" | "md" | "lg" | "xl";
+
 interface ISettings {
   cardBackImageSrc: string;
-  gameDiffucult: string;
+  gridSize: GridSize;
 }
 
-export type { ISettings };
+export type { ISettings, GridSize };

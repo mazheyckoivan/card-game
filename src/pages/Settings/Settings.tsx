@@ -2,31 +2,50 @@ import { FC } from "react";
 import { Button, Card, Radio, Typography } from "antd";
 
 import { CARD_BACK_IMAGES } from "../../constants/cardImages";
-import { ISettings } from "../../shared/interfaces/Settings.interface";
+import { GridSize } from "../../shared/interfaces/Settings.interface";
+import classNames from "classnames";
+import { ICard } from "../../shared/interfaces/Card.interface";
+
+import GRID_SIZE_OPTIONS from "./Settings.constants";
 
 const { Title } = Typography;
 
 interface Props {
-  onSettingsSubmit(values: ISettings): void;
+  selectedBackImageSrc: string;
+  selectedGridSize: GridSize;
+  onCardBackImageClick(card: ICard): void;
+  onGridSizeChange(gridSize: GridSize): void;
+  onLetsPlayButtonClick(): void;
 }
 
-const Settings: FC<Props> = ({ onSettingsSubmit }) => {
+const Settings: FC<Props> = ({
+  selectedBackImageSrc,
+  selectedGridSize,
+  onCardBackImageClick,
+  onGridSizeChange,
+  onLetsPlayButtonClick,
+}) => {
   return (
     <div className="settings-screen">
       <Title underline>Choose the settings to play with</Title>
 
       <section className="back-images">
         <Title level={3}>Choose back side of your cards</Title>
+
         <div className="back-images-grid">
           {CARD_BACK_IMAGES.map((card) => {
+            const cardClassNames = classNames("back-image-card", {
+              selected: card.src === selectedBackImageSrc,
+            });
+
             return (
-              <Card hoverable className="back-image-card">
-                <img
-                  key={card.src}
-                  src={card.src}
-                  alt="card back"
-                  className="back-image"
-                />
+              <Card
+                hoverable
+                key={card.src}
+                className={cardClassNames}
+                onClick={() => onCardBackImageClick(card)}
+              >
+                <img src={card.src} alt="card back" className="back-image" />
               </Card>
             );
           })}
@@ -37,20 +56,21 @@ const Settings: FC<Props> = ({ onSettingsSubmit }) => {
         <Title level={3}>Choose grid size</Title>
 
         <Radio.Group
-          options={[
-            { label: "3x4", value: "sm" },
-            { label: "4x4", value: "md" },
-            { label: "6x4", value: "lg" },
-            { label: "6x6", value: "xl" },
-          ]}
+          options={GRID_SIZE_OPTIONS}
+          value={selectedGridSize}
+          onChange={(e) => onGridSizeChange(e.target.value)}
           size="large"
           optionType="button"
           buttonStyle="solid"
         />
       </section>
 
-      <Button ghost htmlType="submit" className="submit-settings-button">
-        SUBMIT SETTINGS
+      <Button
+        ghost
+        onClick={onLetsPlayButtonClick}
+        className="lets-play-button"
+      >
+        LET'S PLAY
       </Button>
     </div>
   );

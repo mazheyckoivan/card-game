@@ -4,7 +4,7 @@
   gap: 1rem;
 }
 
-.submit-settings-button {
+.lets-play-button {
   align-self: flex-end;
 }
 
@@ -16,6 +16,10 @@
 
 .settings-screen .back-image-card {
   background: rgb(46, 28, 0);
+}
+
+.settings-screen .back-image-card.selected {
+  border-color: rgba(255, 255, 255, 0.85);
 }
 
 .settings-screen .back-image {
