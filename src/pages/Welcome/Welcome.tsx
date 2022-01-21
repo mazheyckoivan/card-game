@@ -1,6 +1,9 @@
+import { FC } from "react";
 import { Button, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
-import { FC } from "react";
+
+import ROUTES from "../../constants/routes";
+
 import "./styles.css";
 
 const { Title, Paragraph } = Typography;
@@ -41,7 +44,7 @@ const Welcome: FC = () => {
         size="large"
         className="button"
         onClick={() => {
-          navigate("login");
+          navigate(ROUTES.login);
         }}
       >
         LET'S GO

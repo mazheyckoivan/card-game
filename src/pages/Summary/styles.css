@@ -1,0 +1,15 @@
+.summary-screen {
+  display: flex;
+  flex-direction: column;
+}
+
+.game-summary {
+  text-align: center;
+}
+
+.play-game-first {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}

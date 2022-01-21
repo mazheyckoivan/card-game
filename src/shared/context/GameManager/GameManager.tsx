@@ -4,10 +4,13 @@ import {
   ReactNode,
   useCallback,
   useEffect,
+  useRef,
   useState,
 } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { GRID_SIZE_CARDS_AMOUNT } from "../../../constants/gameSettings";
+import ROUTES from "../../../constants/routes";
 import { useAppSelector } from "../../../store/hooks";
 import { ICard } from "../../interfaces/Card.interface";
 
@@ -20,22 +23,34 @@ interface Props {
 const GameContext = createContext<IContextValues | undefined>(undefined);
 
 const GameContextWrapper: FC<Props> = ({ children }) => {
+  const navigate = useNavigate();
   const gridSize = useAppSelector((state) => state.settings.gridSize);
 
+  const [finished, setFinished] = useState(false);
   const [cards, setCards] = useState<ICard[]>([]);
   const [turns, setTurns] = useState(0);
   const [firstCard, setFirstCard] = useState<ICard | null>(null);
   const [secondCard, setSecondCard] = useState<ICard | null>(null);
+  const [disabled, setDisabled] = useState(false);
   const [timeSpent, setTimeSpent] = useState(0);
-
-  const countUp = useCallback(() => {
-    setTimeSpent((timeSpent) => timeSpent + 1);
-  }, []);
+  const timerRef = useRef<any>(null);
 
   const startTimer = useCallback(() => {
+    timerRef.current = setInterval(
+      () => setTimeSpent((timeSpent) => timeSpent + 1),
+      1000
+    );
+  }, []);
+
+  const stopTimer = useCallback(() => {
+    clearInterval(timerRef.current);
+  }, []);
+
+  const toggleTimer = useCallback(() => {
+    clearInterval(timerRef.current);
     setTimeSpent(0);
-    setInterval(countUp, 1000);
-  }, [countUp]);
+    startTimer();
+  }, [startTimer]);
 
   const prepareCardGameImages = useCallback(() => {
     const imageSources = Array.from(Array(36).keys())
@@ -61,27 +76,32 @@ const GameContextWrapper: FC<Props> = ({ children }) => {
   }, [prepareCardGameImages]);
 
   const restart = useCallback(() => {
+    setFinished(false);
     setCards(shuffleCards());
     setTurns(0);
-    startTimer();
-  }, [shuffleCards, startTimer]);
+    toggleTimer();
+  }, [shuffleCards, toggleTimer]);
 
   const resetTurn = useCallback(() => {
     setFirstCard(null);
     setSecondCard(null);
     setTurns((turns) => turns + 1);
+    setDisabled(false);
   }, []);
 
   const handleCardClick = useCallback(
     (card) => {
-      firstCard ? setSecondCard(card) : setFirstCard(card);
+      if (!disabled) {
+        firstCard ? setSecondCard(card) : setFirstCard(card);
+      }
     },
-    [firstCard]
+    [disabled, firstCard]
   );
 
   // check if cards matched or no and resetting turn
   useEffect(() => {
     if (firstCard && secondCard) {
+      setDisabled(true);
       if (firstCard.src === secondCard.src) {
         setCards((prevCards) =>
           prevCards.map((card) => {
@@ -100,10 +120,12 @@ const GameContextWrapper: FC<Props> = ({ children }) => {
 
   // check for all cards opened
   useEffect(() => {
-    if (cards.every((card) => card.matched)) {
-      console.log("WIN");
+    if (!finished && cards.length && cards.every((card) => card.matched)) {
+      setFinished(true);
+      stopTimer();
+      navigate(ROUTES.summary, { state: { timeSpent, turns } });
     }
-  }, [cards]);
+  }, [cards, finished, navigate, stopTimer, timeSpent, turns]);
 
   return (
     <GameContext.Provider
@@ -113,6 +135,7 @@ const GameContextWrapper: FC<Props> = ({ children }) => {
         firstCard,
         secondCard,
         timeSpent,
+        finished,
         restart,
         handleCardClick,
       }}
