@@ -1,0 +1,9 @@
+.welcome-screen {
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.button {
+  align-self: center;
+}
