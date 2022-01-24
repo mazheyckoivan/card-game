@@ -1,8 +1,8 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import { Card } from "antd";
 import classNames from "classnames";
 
-import { ICard } from "../../interfaces/Card.interface";
+import { ICard } from "../../../../interfaces/Card.interface";
 
 interface Props {
   card: ICard;
@@ -28,4 +28,4 @@ const GameCard: FC<Props> = ({ card, flipped, backImageSrc, onCardClick }) => {
   );
 };
 
-export default GameCard;
+export default memo(GameCard);

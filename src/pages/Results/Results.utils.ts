@@ -1,6 +1,6 @@
 import { GRID_SIZES_MAP } from "../../constants/gameSettings";
-import { IResult } from "../../shared/interfaces/Result.interface";
-import getFormattedTimeFromSeconds from "../../shared/utils/time.utils";
+import { IResult } from "../../interfaces/Result.interface";
+import getFormattedTimeFromSeconds from "../../utils/time.utils";
 
 const cookDataSourceFromResults = (results: IResult[]) =>
   results.map((result, index) => ({

@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 
-import userReducer from "./slices/userSlice";
-import settingsReducer from "./slices/settingsSlice";
+import userReducer from "../pages/Login/store/userSlice";
+import settingsReducer from "../pages/Settings/store/settingsSlice";
 
 const rootReducer = combineReducers({
   user: userReducer,

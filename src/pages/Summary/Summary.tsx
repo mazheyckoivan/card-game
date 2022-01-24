@@ -2,8 +2,9 @@ import { FC } from "react";
 import { Button, Typography } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import useGameManager from "../../shared/context/GameManager/useGameManager";
-import ROUTES from "../../constants/routes";
+import { getFormattedTimeFromSeconds } from "utils";
+import useGameManager from "context/GameManager/useGameManager";
+import ROUTES from "constants/routes";
 
 import "./styles.css";
 
@@ -17,6 +18,8 @@ const Summary: FC = () => {
 
   const { finished } = useGameManager();
 
+  console.log(finished);
+
   return (
     <div className="summary-screen">
       {finished && (
@@ -25,7 +28,9 @@ const Summary: FC = () => {
             <Title>Summary:</Title>
 
             <Title level={2}>Turns: {turns}</Title>
-            <Title level={2}>Time Spent: {timeSpent}</Title>
+            <Title level={2}>
+              Time Spent: {getFormattedTimeFromSeconds(timeSpent)}
+            </Title>
           </section>
 
           <section className="action-buttons">
