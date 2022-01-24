@@ -1,8 +1,8 @@
-import { FC } from "react";
-import { useAppSelector } from "../../../store/hooks";
+import { FC, memo } from "react";
+import { useAppSelector } from "../../../../store/hooks";
 
-import useGameManager from "../../context/GameManager/useGameManager";
-import { ICard } from "../../interfaces/Card.interface";
+import useGameManager from "../../../../context/GameManager/useGameManager";
+import { ICard } from "../../../../interfaces/Card.interface";
 
 import GameCard from "./GameCard";
 import "./styles.css";
@@ -30,4 +30,4 @@ const GameCardContainer: FC<Props> = ({ card }) => {
   );
 };
 
-export default GameCardContainer;
+export default memo(GameCardContainer);

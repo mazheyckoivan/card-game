@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { IUser } from "../../shared/interfaces/User.interface";
-import { RootState } from "../store";
+import { IUser } from "../../../interfaces/User.interface";
+import { RootState } from "../../../store/store";
 
 const initialState: IUser = {
   firstName: "",
@@ -20,19 +20,10 @@ export const userSlice = createSlice({
       state.secondName = secondName;
       state.email = email;
     },
-    setName: (state, action: PayloadAction<string>) => {
-      state.firstName = action.payload;
-    },
-    setSurname: (state, action: PayloadAction<string>) => {
-      state.secondName = action.payload;
-    },
-    setEmail: (state, action: PayloadAction<string>) => {
-      state.email = action.payload;
-    },
   },
 });
 
-export const { setName, setSurname, setEmail, setUserData } = userSlice.actions;
+export const { setUserData } = userSlice.actions;
 
 export const selectName = (state: RootState) => state.user.firstName;
 export const selectSurname = (state: RootState) => state.user.secondName;

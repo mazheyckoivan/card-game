@@ -3,7 +3,7 @@
   display: grid;
   place-items: center;
 
-  background-image: url("../../../../public/images/background.jpg");
+  background-image: url("../../../public/images/background.jpg");
   background-color: rgba(120, 120, 120, 0.8);
   background-blend-mode: multiply;
 }

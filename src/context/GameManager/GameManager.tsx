@@ -9,11 +9,12 @@ import {
 } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { GRID_SIZE_CARDS_AMOUNT } from "../../../constants/gameSettings";
-import ROUTES from "../../../constants/routes";
-import { useAppSelector } from "../../../store/hooks";
+import { GRID_SIZE_CARDS_AMOUNT } from "../../constants/gameSettings";
+import ROUTES from "../../constants/routes";
+import { useAppSelector } from "../../store/hooks";
 import { ICard } from "../../interfaces/Card.interface";
 import { IResult } from "../../interfaces/Result.interface";
+import { getLocalStorageItem, setLocalStorageItem } from "../../utils";
 
 import { IContextValues } from "./GameManager.interfaces";
 
@@ -50,10 +51,10 @@ const GameContextWrapper: FC<Props> = ({ children }) => {
   }, []);
 
   const toggleTimer = useCallback(() => {
-    clearInterval(timerRef.current);
+    stopTimer();
     setTimeSpent(0);
     startTimer();
-  }, [startTimer]);
+  }, [startTimer, stopTimer]);
 
   const prepareCardGameImages = useCallback(() => {
     const imageSources = Array.from(Array(36).keys())
@@ -111,17 +112,11 @@ const GameContextWrapper: FC<Props> = ({ children }) => {
       difficult: gridSize,
     };
 
-    const rawOldResults = localStorage.getItem("results");
+    const oldResults = getLocalStorageItem("resultes");
 
-    if (rawOldResults) {
-      const oldResults = JSON.parse(rawOldResults);
-      localStorage.setItem(
-        "results",
-        JSON.stringify([...oldResults, newResult])
-      );
-    } else {
-      localStorage.setItem("results", JSON.stringify([newResult]));
-    }
+    oldResults
+      ? setLocalStorageItem("results", [...oldResults, newResult])
+      : setLocalStorageItem("results", [newResult]);
   }, [gridSize, timeSpent, turns, user.email, user.firstName, user.secondName]);
 
   // check if cards matched or no and resetting turn
