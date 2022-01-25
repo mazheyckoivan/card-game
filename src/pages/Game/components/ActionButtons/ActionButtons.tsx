@@ -3,11 +3,13 @@ import { Button } from "antd";
 import { useNavigate } from "react-router-dom";
 
 import ROUTES from "constants/routes";
-import useGameManager from "context/GameManager/useGameManager";
 
-const ActionButtons: FC = () => {
+interface Props {
+  restart(): void;
+}
+
+const ActionButtons: FC<Props> = ({ restart }) => {
   const navigate = useNavigate();
-  const { restart } = useGameManager();
 
   return (
     <section className="action-buttons">

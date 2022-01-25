@@ -1,23 +1,19 @@
 import { FC } from "react";
-import { Typography } from "antd";
 
-import { getFormattedTimeFromSeconds } from "utils";
+import Turns from "./Turns";
+import TimeSpent from "./TimeSpent";
 
-import useGameManager from "context/GameManager/useGameManager";
+interface Props {
+  timeSpent: number;
+  turns: number;
+}
 
-const { Title } = Typography;
-
-interface Props {}
-
-const GameStats: FC<Props> = () => {
-  const { turns, timeSpent } = useGameManager();
-
+const GameStats: FC<Props> = ({ timeSpent, turns }) => {
   return (
     <section className="game-stats">
-      <Title>Turns: {turns}</Title>
-      <Title style={{ marginTop: 0 }}>
-        Time spent: {getFormattedTimeFromSeconds(timeSpent)}
-      </Title>
+      <Turns turns={turns} />
+
+      <TimeSpent timeSpent={timeSpent} />
     </section>
   );
 };

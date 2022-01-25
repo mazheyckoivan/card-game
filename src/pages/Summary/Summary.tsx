@@ -3,8 +3,8 @@ import { Button, Typography } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { getFormattedTimeFromSeconds } from "utils";
-import useGameManager from "context/GameManager/useGameManager";
 import ROUTES from "constants/routes";
+import useGameManager from "context/GameManager/useGameManager";
 
 import "./styles.css";
 
@@ -12,13 +12,9 @@ const { Title } = Typography;
 
 const Summary: FC = () => {
   const navigate = useNavigate();
-  const {
-    state: { timeSpent, turns },
-  }: any = useLocation();
+  const { state }: any = useLocation();
 
   const { finished } = useGameManager();
-
-  console.log(finished);
 
   return (
     <div className="summary-screen">
@@ -27,9 +23,9 @@ const Summary: FC = () => {
           <section className="game-summary">
             <Title>Summary:</Title>
 
-            <Title level={2}>Turns: {turns}</Title>
+            <Title level={2}>Turns: {state?.turns}</Title>
             <Title level={2}>
-              Time Spent: {getFormattedTimeFromSeconds(timeSpent)}
+              Time Spent: {getFormattedTimeFromSeconds(state?.timeSpent)}
             </Title>
           </section>
 

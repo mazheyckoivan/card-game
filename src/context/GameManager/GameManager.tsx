@@ -9,12 +9,19 @@ import {
 } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { GRID_SIZE_CARDS_AMOUNT } from "../../constants/gameSettings";
-import ROUTES from "../../constants/routes";
-import { useAppSelector } from "../../store/hooks";
-import { ICard } from "../../interfaces/Card.interface";
-import { IResult } from "../../interfaces/Result.interface";
-import { getLocalStorageItem, setLocalStorageItem } from "../../utils";
+import { ICard, IResult } from "interfaces";
+import {
+  getFormattedTimeFromSeconds,
+  getLocalStorageItem,
+  setLocalStorageItem,
+} from "utils";
+import { useAppSelector } from "store/hooks";
+import {
+  CARD_ASSETS_AMOUNT,
+  GRID_SIZES_MAP,
+  GRID_SIZE_CARDS_AMOUNT,
+} from "constants/gameSettings";
+import ROUTES from "constants/routes";
 
 import { IContextValues } from "./GameManager.interfaces";
 
@@ -57,7 +64,7 @@ const GameContextWrapper: FC<Props> = ({ children }) => {
   }, [startTimer, stopTimer]);
 
   const prepareCardGameImages = useCallback(() => {
-    const imageSources = Array.from(Array(36).keys())
+    const imageSources = Array.from(Array(CARD_ASSETS_AMOUNT).keys())
       .sort(() => Math.random() - 0.5)
       .slice(0, GRID_SIZE_CARDS_AMOUNT[gridSize])
       .map((imageIndex: number) => `images/fronts/${imageIndex + 1}.png`);
@@ -108,18 +115,17 @@ const GameContextWrapper: FC<Props> = ({ children }) => {
       secondName: user.secondName || "N/A",
       email: user.email || "N/A",
       turns: turns,
-      time: timeSpent,
-      difficult: gridSize,
+      time: getFormattedTimeFromSeconds(timeSpent),
+      difficult: GRID_SIZES_MAP.get(gridSize) || "N/A",
     };
 
-    const oldResults = getLocalStorageItem("resultes");
+    const oldResults = getLocalStorageItem("results");
 
     oldResults
       ? setLocalStorageItem("results", [...oldResults, newResult])
       : setLocalStorageItem("results", [newResult]);
   }, [gridSize, timeSpent, turns, user.email, user.firstName, user.secondName]);
 
-  // check if cards matched or no and resetting turn
   useEffect(() => {
     if (firstCard && secondCard) {
       setDisabled(true);
@@ -139,7 +145,6 @@ const GameContextWrapper: FC<Props> = ({ children }) => {
     }
   }, [firstCard, secondCard, resetTurn]);
 
-  // check for all cards opened
   useEffect(() => {
     if (!finished && cards.length && cards.every((card) => card.matched)) {
       setFinished(true);
@@ -159,6 +164,7 @@ const GameContextWrapper: FC<Props> = ({ children }) => {
         timeSpent,
         finished,
         restart,
+        stopTimer,
         handleCardClick,
       }}
     >

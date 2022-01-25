@@ -1,4 +1,4 @@
-import { ICard } from "../../interfaces/Card.interface";
+import { ICard } from "interfaces";
 
 interface IContextValues {
   cards: ICard[];
@@ -8,6 +8,7 @@ interface IContextValues {
   timeSpent: number;
   finished: boolean;
   restart(): void;
+  stopTimer(): void;
   handleCardClick(Card: ICard): void;
 }
 

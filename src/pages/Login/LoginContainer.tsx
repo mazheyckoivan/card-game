@@ -1,11 +1,11 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 
-import ROUTES from "../../constants/routes";
-import { IUser } from "../../interfaces/User.interface";
-import { useAppDispatch } from "../../store/hooks";
-import { setUserData } from "./store/userSlice";
+import { IUser } from "interfaces";
+import ROUTES from "constants/routes";
+import { useAppDispatch } from "store/hooks";
 
+import { setUserData } from "./store/userSlice";
 import Login from "./Login";
 
 const LoginContainer: FC = () => {
