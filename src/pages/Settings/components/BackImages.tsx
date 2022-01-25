@@ -2,9 +2,9 @@ import { FC, memo } from "react";
 import { Card, Typography } from "antd";
 import classNames from "classnames";
 
-import { useAppSelector } from "../../../store/hooks";
-import { CARD_BACK_IMAGES } from "../../../constants/cardImages";
-import { ICard } from "../../../interfaces/Card.interface";
+import { ICard } from "interfaces";
+import { useAppSelector } from "store/hooks";
+import { CARD_BACK_IMAGES } from "constants/cardImages";
 
 const { Title } = Typography;
 

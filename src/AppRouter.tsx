@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Route, Routes } from "react-router-dom";
+
 import ROUTES from "./constants/routes";
 import {
   Game,

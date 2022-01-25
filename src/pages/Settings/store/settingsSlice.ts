@@ -1,9 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { CARD_BACK_IMAGES } from "../../../constants/cardImages";
-import { GridSize, ISettings } from "../../../interfaces/Settings.interface";
-
-import { RootState } from "../../../store/store";
+import { GridSize, ISettings } from "interfaces";
+import { CARD_BACK_IMAGES } from "constants/cardImages";
+import { RootState } from "store/store";
 
 const initialState: ISettings = {
   cardBackImageSrc: CARD_BACK_IMAGES[0].src,

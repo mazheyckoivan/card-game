@@ -2,7 +2,8 @@ import { FC } from "react";
 import { Button, Table, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
 
-import ROUTES from "../../constants/routes";
+import ROUTES from "constants/routes";
+
 import cookDataSourceFromResults from "./Results.utils";
 import RESULTS_COLUMNS from "./Result.constants";
 

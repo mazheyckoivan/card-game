@@ -24,20 +24,6 @@
   grid-auto-rows: 120px;
 }
 
-/* small hack to make squares for all grid items */
-/* .card-grid::before {
-  content: "";
-  width: 0;
-  padding-bottom: 100%;
-  grid-row: 1 / 1;
-  grid-column: 1 / 1;
-}
-
-.card-grid > *:first-child {
-  grid-row: 1 / 1;
-  grid-column: 1 / 1;
-} */
-
 .game-container {
   display: flex;
   flex-direction: column;
