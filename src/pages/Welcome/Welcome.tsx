@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Button, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
 
-import ROUTES from "../../constants/routes";
+import ROUTES from "constants/routes";
 
 import "./styles.css";
 

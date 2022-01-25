@@ -6,19 +6,37 @@ import { ActionButtons, GameGrid, GameStats } from "./components";
 import "./styles.css";
 
 const Game: FC = () => {
-  const { restart } = useGameManager();
+  const {
+    cards,
+    firstCard,
+    secondCard,
+    timeSpent,
+    turns,
+    restart,
+    stopTimer,
+    handleCardClick,
+  } = useGameManager();
 
   useEffect(() => {
     restart();
-  }, [restart]);
+
+    return () => {
+      stopTimer();
+    };
+  }, [restart, stopTimer]);
 
   return (
     <div className="game-container">
-      <ActionButtons />
+      <ActionButtons restart={restart} />
 
-      <GameStats />
+      <GameStats timeSpent={timeSpent} turns={turns} />
 
-      <GameGrid />
+      <GameGrid
+        cards={cards}
+        firstCard={firstCard}
+        secondCard={secondCard}
+        onCardClick={handleCardClick}
+      />
     </div>
   );
 };

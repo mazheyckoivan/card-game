@@ -1,8 +1,8 @@
 import { FC, memo } from "react";
 import { Radio, Typography } from "antd";
 
-import { GridSize } from "../../../interfaces/Settings.interface";
-import { useAppSelector } from "../../../store/hooks";
+import { GridSize } from "interfaces";
+import { useAppSelector } from "store/hooks";
 
 import GRID_SIZE_OPTIONS from "../Settings.constants";
 

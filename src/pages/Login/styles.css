@@ -1,7 +1,15 @@
+.login-screen {
+  display: flex;
+  flex-direction: column;
+}
+
 .login-form {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+
+  width: 50%;
+  align-self: center;
 }
 
 .login-form .submit-button {

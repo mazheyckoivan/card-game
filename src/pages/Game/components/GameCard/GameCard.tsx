@@ -2,7 +2,7 @@ import { FC, memo } from "react";
 import { Card } from "antd";
 import classNames from "classnames";
 
-import { ICard } from "../../../../interfaces/Card.interface";
+import { ICard } from "interfaces";
 
 interface Props {
   card: ICard;

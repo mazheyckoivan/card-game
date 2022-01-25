@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Button, Input, Typography } from "antd";
 import { useForm, Controller } from "react-hook-form";
 
-import { IUser } from "../../interfaces/User.interface";
+import { IUser } from "interfaces";
 
 import "./styles.css";
 

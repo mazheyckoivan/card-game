@@ -1,4 +1,4 @@
-import { GRID_SIZES_MAP, GRID_SIZE_RANGES } from "../../constants/gameSettings";
+import { GRID_SIZES_MAP, GRID_SIZE_RANGES } from "constants/gameSettings";
 
 const GRID_SIZE_OPTIONS = [
   {

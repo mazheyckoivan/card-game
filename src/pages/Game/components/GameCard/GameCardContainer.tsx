@@ -1,31 +1,28 @@
 import { FC, memo } from "react";
-import { useAppSelector } from "../../../../store/hooks";
 
-import useGameManager from "../../../../context/GameManager/useGameManager";
-import { ICard } from "../../../../interfaces/Card.interface";
+import { ICard } from "interfaces";
+import { useAppSelector } from "store/hooks";
 
 import GameCard from "./GameCard";
 import "./styles.css";
 
 interface Props {
   card: ICard;
+  flipped: boolean;
+  onCardClick(card: ICard): void;
 }
 
-const GameCardContainer: FC<Props> = ({ card }) => {
+const GameCardContainer: FC<Props> = ({ card, flipped, onCardClick }) => {
   const cardBackImageSrc = useAppSelector(
     (state) => state.settings.cardBackImageSrc
   );
 
-  const { firstCard, secondCard, handleCardClick } = useGameManager();
-  const isCardFlipped =
-    card === firstCard || card === secondCard || Boolean(card.matched);
-
   return (
     <GameCard
       card={card}
-      flipped={isCardFlipped}
+      flipped={flipped}
       backImageSrc={cardBackImageSrc}
-      onCardClick={handleCardClick}
+      onCardClick={onCardClick}
     />
   );
 };
